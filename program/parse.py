@@ -3,10 +3,15 @@ import csv
 import re
 import string
 
+'''
+Main file used to parse the input data
+'''
 class Parse():
+    #Saves the file to
     def saveLine(self,subject,openRate,clickRate):
-        with open("preprocessed2.txt","a+") as f:
+        with open("preprocessed.txt","a+") as f:
             f.write(subject+":::"+str(openRate)+":::"+str(clickRate)+"\r\n")
+    #Cleans the subject of unneeded characters, as well as french characters
     def cleanSubject(self,subject):
         subject = subject.lower()
         subject = re.sub('[\"():!?.,]','',subject)
@@ -41,7 +46,9 @@ class Parse():
         if(final=="" or final=="\r\n"):
             final="NOACCEPT"
         return final
-
+    '''
+    Concatenates subject lines if there are commas invloved in the subject (needed for this dataset...)
+    '''
     def concatSubjects(self,rowSplit,end,beforeSubject):
         subject=""
         for i in range(end-beforeSubject):
@@ -55,6 +62,9 @@ class Parse():
                 subject+=rowSplit[beforeSubject+1+i]
         subject = self.cleanSubject(subject)
         return subject
+    '''
+    Parses all the stuffs... This took a long time
+    '''
     def parse(self,filename,numLines):
         count=0
         skip=0
@@ -100,17 +110,3 @@ class Parse():
                     count+=1
                 except (IndexError, ValueError): #For when there are newline characters in the subject line for whatever reason, or if there's any weird values which dont make sense
                     count+=1
-
-    def split_train_test(self, processedFile):
-		with open(processedFile,'r') as f:
-			for i,l in enumerate(f):
-				pass
-			fileLength=i
-		with open(processedFile,'r') as f:
-			for i,l in enumerate(f):
-				if(i<int(fileLength*0.8)):
-					with open('preprocessed_train.txt','a+') as fp:
-						fp.write(l)
-				else:
-					with open('preprocessed_test.txt','a+') as fp:
-						fp.write(l)
