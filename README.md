@@ -75,5 +75,5 @@ In further explanation of these:
 
 
 Should you have any further questions about the project or my findings, please
-feel free to email me at phouldin@uoguelph.ca and I would gladly try my best
+feel free to email me at houlding.patrick@gmail.com and I would gladly try my best
 to help out! :)
